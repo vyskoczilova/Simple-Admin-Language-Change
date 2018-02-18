@@ -2,10 +2,10 @@
 Contributors: vyskoczilova
 Tags: translation, translations, i18n, admin, english, localization, backend, simple, change, admin, language, administration, locale 
 Requires at least: 4.0
-Tested up to: 4.7.2
+Tested up to: 4.9.4
 Stable tag: /trunk
-License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/vyskoczilova/Simple-Admin-Language-Change/
 
 Simple and lightweight solution for changing the language of the admin area. Front site locale and language remain unchanged.
@@ -18,7 +18,7 @@ This simple and lightweight plugin allows you to set locale for admin area only 
 
 Applies only to administrator accounts.
 
-Do you want help with the development? Join the Github: https://github.com/vyskoczilova/Simple-Admin-Language-Change/
+Do you want help with the development? Join the [Github](https://github.com/vyskoczilova/Simple-Admin-Language-Change/)!
 
 == Installation ==
 = EN =
@@ -33,6 +33,9 @@ Do you want help with the development? Join the Github: https://github.com/vysko
 1. Settings of Admin language in General Settings.
 
 == Changelog ==
+
+= 1.0.1 (2018-02-18) = 
+* Fix: PHP 7 deprecated methods - compatibility ([#1](https://github.com/vyskoczilova/Simple-Admin-Language-Change/issues/1))
 
 = 1.0.0 (2016-10-06) =
 * Initial version

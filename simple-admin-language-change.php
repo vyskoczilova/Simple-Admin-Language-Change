@@ -3,12 +3,12 @@
  * Plugin Name:       Simple Admin Language Change
  * Plugin URI:		  http://kybernaut.cz/pluginy/simple-admin-language-change
  * Description:       Change your admin language easily.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Karolína Vyskočilová
- * Author URI:        http://www.kybernaut.cz
+ * Author URI:        https://www.kybernaut.cz
  * Text Domain:       kbnt-scal
- * License:           GPLv3
- * License URI:       http://www.gnu.org/licenses/gpl-3.0.html
+ * License: GPL-2.0+
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
  */
 
@@ -54,14 +54,14 @@ function admin_language_setLocale( $locale ) {
 
 class admin_language_new_general_setting {
 
-    function admin_language_new_general_setting( ) {
+    function __construct() {
         add_filter( 'admin_init' , array( &$this , 'admin_language_register_fields' ) );
     }
-    function admin_language_register_fields() {
+    public function admin_language_register_fields() {
         register_setting( 'general', 'WPLANG_ADMIN', 'esc_attr' );
         add_settings_field('admin_language', '<label for="WPLANG_ADMIN">'.__('Admin Language' , 'kbnt-scal' ).'</label>' , array(&$this, 'admin_language_fields_html') , 'general');
     }
-    function admin_language_fields_html() {
+    public function admin_language_fields_html() {
         
 		$locale = get_option( 'WPLANG_ADMIN', 'en_US' );	
 		
