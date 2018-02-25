@@ -20,6 +20,9 @@ Applies only to administrator accounts.
 
 Do you want help with the development? Join the [Github](https://github.com/vyskoczilova/Simple-Admin-Language-Change/)!
 
+=== Compatibility ===
+* Has conflict with [SiteOrigin Widgets Bundle](https://cs.wordpress.org/plugins/so-widgets-bundle/) - prevents javascript popup on Widgets page.
+
 == Installation ==
 = EN =
 1. Upload the plugin to your website or install via plugin management.
@@ -33,6 +36,9 @@ Do you want help with the development? Join the [Github](https://github.com/vysk
 1. Settings of Admin language in General Settings.
 
 == Changelog ==
+
+= 1.0.2 (2018-02-25) =
+* Fix: enable localization
 
 = 1.0.1 (2018-02-18) = 
 * Fix: PHP 7 deprecated methods - compatibility ([#1](https://github.com/vyskoczilova/Simple-Admin-Language-Change/issues/1))

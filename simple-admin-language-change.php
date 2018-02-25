@@ -3,7 +3,7 @@
  * Plugin Name:       Simple Admin Language Change
  * Plugin URI:		  http://kybernaut.cz/pluginy/simple-admin-language-change
  * Description:       Change your admin language easily.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            Karolína Vyskočilová
  * Author URI:        https://www.kybernaut.cz
  * Text Domain:       kbnt-scal
@@ -18,7 +18,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-
 // =============================================================================
 // ACTIONS
 // =============================================================================
@@ -30,6 +29,12 @@ function admin_language_loaded() {
 	
 }
 add_action( 'plugins_loaded', 'admin_language_loaded' );   
+
+// Localize plugin
+add_action( 'init', 'admin_language_localize_plugin' );
+function admin_language_localize_plugin() {
+    load_plugin_textdomain( 'kbnt-scal', false, plugin_dir_path( __FILE__ ) . 'languages/' );
+}
 
 
 // =============================================================================
