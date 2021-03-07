@@ -12,83 +12,55 @@
  * Domain Path:       /languages
  */
 
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// =============================================================================
-// ACTIONS
-// =============================================================================
+define('SIMPLE_ADMIN_LANGUAGE_VERSION', '2.0.0');
 
-function admin_language_loaded() {
 
-	$new_general_setting = new admin_language_new_general_setting();
-	add_filter('locale', 'admin_language_setLocale');
-
+/**
+ * Localize the plugin
+ *
+ * @return void
+ */
+function admin_language_localize_plugin()
+{
+	load_plugin_textdomain('kbnt-scal', false, plugin_dir_path(__FILE__) . 'languages/');
 }
-add_action( 'plugins_loaded', 'admin_language_loaded' );
+add_action('init', 'admin_language_localize_plugin');
 
-// Localize plugin
-add_action( 'init', 'admin_language_localize_plugin' );
-function admin_language_localize_plugin() {
-    load_plugin_textdomain( 'kbnt-scal', false, plugin_dir_path( __FILE__ ) . 'languages/' );
-}
+/**
+ * Check version and run upgrade routine if needed.
+ * @return void
+ */
+function simple_admin_language_check_version()
+{
+	$plugin_version = get_option('simple_admin_language_version', '1.0.2');
+	if ( $plugin_version !== SIMPLE_ADMIN_LANGUAGE_VERSION) {
 
+		// Store new version.
+		update_option('simple_admin_language_version',SIMPLE_ADMIN_LANGUAGE_VERSION);
 
-// =============================================================================
-// FUNCTIONS
-// =============================================================================
+		// Run upgrade routine from the old version.
+		if ( version_compare($plugin_version, '2.0.0', '<')) {
 
-function admin_language_setLocale( $locale ) {
+			// Check if WPLANG_ADMIN used in versions 1.0.* is present.
+			$admin_wplang = get_option('WPLANG_ADMIN', false);
 
-	global $pagenow;
+			if ($admin_wplang) {
+				// Update language for all admins.
+				$administrators = get_users( array( 'role__in' => array( 'administrator' ) ) );
 
-	if ( is_admin() && $pagenow != 'options-general.php' && current_user_can('administrator') ) {
-		$locale_admin = get_option( 'WPLANG_ADMIN', 'en_US' );
-		return $locale_admin;
+				// Array of WP_User objects.
+				foreach ($administrators as $a) {
+					$a->__set('locale',$admin_wplang);
+					wp_update_user($a);
+				}
+				delete_option('WPLANG_ADMIN');
+			}
+		}
 	}
-
-	return $locale;
 }
-
-// =============================================================================
-// CLASSES
-// =============================================================================
-
-class admin_language_new_general_setting {
-
-    function __construct() {
-        add_filter( 'admin_init' , array( &$this , 'admin_language_register_fields' ) );
-    }
-    public function admin_language_register_fields() {
-        register_setting( 'general', 'WPLANG_ADMIN', 'esc_attr' );
-        add_settings_field('admin_language', '<label for="WPLANG_ADMIN">'.__('Admin Language' , 'kbnt-scal' ).'</label>' , array(&$this, 'admin_language_fields_html') , 'general');
-    }
-    public function admin_language_fields_html() {
-
-		$locale = get_option( 'WPLANG_ADMIN', 'en_US' );
-
-		$languages = get_available_languages();
-		$translations = wp_get_available_translations();
-		if ( ! is_multisite() && defined( 'WPLANG_ADMIN' ) && '' !== WPLANG_ADMIN && 'en_US' !== WPLANG_ADMIN && ! in_array( WPLANG_ADMIN, $languages ) ) {
-			$languages[] = WPLANG;
-		}
-		if ( ! empty( $languages ) || ! empty( $translations ) ) {
-
-			wp_dropdown_languages( array(
-				'name'         => 'WPLANG_ADMIN',
-				'id'           => 'WPLANG_ADMIN',
-				'selected'     => $locale,
-				'languages'    => $languages,
-				'translations' => $translations,
-				'echo'         => 1,
-				'show_available_translations' => ( ! is_multisite() || is_super_admin() ) && wp_can_install_language_pack(),
-			) );
-
-		}
-
-    }
-
-}
+add_action('plugins_loaded', 'simple_admin_language_check_version');
