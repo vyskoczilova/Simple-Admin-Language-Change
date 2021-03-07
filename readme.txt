@@ -1,22 +1,20 @@
 ===  Simple Admin Language Change ===
 Contributors: vyskoczilova
 Tags: admin language, backend language, localization, backend, English
-Requires at least: 5.0
+Requires at least: 4.7
 Tested up to: 5.7
-Stable tag: /trunk
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/vyskoczilova/Simple-Admin-Language-Change/
 
-Simple and lightweight solution for changing the language of the admin area. Front site locale and language remain unchanged.
+Change your dashboard language quickly and easily in the admin bar.
 
 == Description ==
 
-Have you ever struggled with setting up a theme or plugin because of bad localisation? Not corresponding to the manual or documentation? Googling for How to's but your web has different locale and you don't want to switch between them?
+The plugin extends the default functionality and pulls out the language selection to the admin bar so you can easily switch between them.
 
-This simple and lightweight plugin allows you to set locale for admin area only (except General Options page) and keep it separate from your page locale. Simple and easy. Automatically set to English, but you can change it in the General Options page settings.
-
-Applies only to the administrator accounts.
+Plugin in versions 1.0.* allowed setting up administration language for different users for quite a long time. **Since WordPress 4.7 version, this feature is now provided natively by WordPress.**
 
 Do you want help with the development? Join the [Github](https://github.com/vyskoczilova/Simple-Admin-Language-Change/)!
 
@@ -36,6 +34,10 @@ Do you want help with the development? Join the [Github](https://github.com/vysk
 1. Settings of Admin language in General Settings.
 
 == Changelog ==
+
+= 2.0.0 =
+* Drop the old functionality replaced by an integrated solution since WordPress 4.7
+* Add a simple select box into administration instead.
 
 = 1.0.2 (2018-02-25) =
 * Fix: enable localization

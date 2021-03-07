@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Simple Admin Language Change
  * Plugin URI:		  http://kybernaut.cz/pluginy/simple-admin-language-change
- * Description:       Change your admin language easily.
- * Version:           1.0.2
+ * Description:       Change your dashboard language quickly and easily in the admin bar.
+ * Version:           2.0.0
  * Author:            Karolína Vyskočilová
  * Author URI:        https://www.kybernaut.cz
  * Text Domain:       kbnt-scal
@@ -24,11 +24,11 @@ if ( ! defined( 'WPINC' ) ) {
 
 function admin_language_loaded() {
 
-	$new_general_setting = new admin_language_new_general_setting();	
-	add_filter('locale', 'admin_language_setLocale');		
-	
+	$new_general_setting = new admin_language_new_general_setting();
+	add_filter('locale', 'admin_language_setLocale');
+
 }
-add_action( 'plugins_loaded', 'admin_language_loaded' );   
+add_action( 'plugins_loaded', 'admin_language_loaded' );
 
 // Localize plugin
 add_action( 'init', 'admin_language_localize_plugin' );
@@ -42,11 +42,11 @@ function admin_language_localize_plugin() {
 // =============================================================================
 
 function admin_language_setLocale( $locale ) {
-	
+
 	global $pagenow;
-	
+
 	if ( is_admin() && $pagenow != 'options-general.php' && current_user_can('administrator') ) {
-		$locale_admin = get_option( 'WPLANG_ADMIN', 'en_US' );	
+		$locale_admin = get_option( 'WPLANG_ADMIN', 'en_US' );
 		return $locale_admin;
 	}
 
@@ -67,16 +67,16 @@ class admin_language_new_general_setting {
         add_settings_field('admin_language', '<label for="WPLANG_ADMIN">'.__('Admin Language' , 'kbnt-scal' ).'</label>' , array(&$this, 'admin_language_fields_html') , 'general');
     }
     public function admin_language_fields_html() {
-        
-		$locale = get_option( 'WPLANG_ADMIN', 'en_US' );	
-		
+
+		$locale = get_option( 'WPLANG_ADMIN', 'en_US' );
+
 		$languages = get_available_languages();
 		$translations = wp_get_available_translations();
 		if ( ! is_multisite() && defined( 'WPLANG_ADMIN' ) && '' !== WPLANG_ADMIN && 'en_US' !== WPLANG_ADMIN && ! in_array( WPLANG_ADMIN, $languages ) ) {
 			$languages[] = WPLANG;
 		}
 		if ( ! empty( $languages ) || ! empty( $translations ) ) {
-			
+
 			wp_dropdown_languages( array(
 				'name'         => 'WPLANG_ADMIN',
 				'id'           => 'WPLANG_ADMIN',
@@ -88,7 +88,7 @@ class admin_language_new_general_setting {
 			) );
 
 		}
-		
+
     }
-	
+
 }
