@@ -71,6 +71,8 @@ function simple_admin_language_admin_menu ( WP_Admin_Bar $admin_bar ) {
     }
 
 	$languages = simple_admin_language_parse_wp_dropdown_languages();
+	$nonce = wp_create_nonce("salc_change_user_locale");
+	$user_id = get_current_user_id();
 
     $admin_bar->add_menu( array(
 		'id'    => 'salc-current-language',
@@ -80,6 +82,7 @@ function simple_admin_language_admin_menu ( WP_Admin_Bar $admin_bar ) {
         'href'  => '#',
         'meta' => [
 			'title' => __( 'Current dashboard language', 'kbnt-kbnt-scal' ),
+			'onclick'  => "return false;"
 		]
 	) );
 
@@ -90,12 +93,44 @@ function simple_admin_language_admin_menu ( WP_Admin_Bar $admin_bar ) {
 			'parent' =>'salc-current-language',
 			'group'  => null,
 			'title' => $la['title'],
-			'href'  => '#',
+			'href'  => admin_url('admin-ajax.php?action=change_user_locale&user_id=' . $user_id . '&nonce=' . $nonce . '&lang=' . ($la['value'] ? $la['value'] : 'en_US')),
 		]);
 
 	}
 }
 add_action( 'admin_bar_menu', 'simple_admin_language_admin_menu', 500 );
+
+
+/**
+ * Change user locale
+ *
+ * @return exit
+ */
+function simple_admin_language_change_user_locale_ajax()
+{
+
+	if (!wp_verify_nonce($_REQUEST['nonce'], "salc_change_user_locale")) {
+		wp_die("Something went wrong, try again.");
+	}
+
+	$user_id = intval($_REQUEST['user_id']);
+	$lang = esc_attr($_REQUEST['lang']);
+
+	if ( ! $user_id || ! $lang ) {
+		wp_die();
+	}
+
+	if ( $lang === 'site-default') {
+		$lang = null;
+	}
+
+	wp_update_user(['ID' => $user_id, 'locale' => $lang]);
+
+	\wp_redirect(admin_url('/')); // TODO FIX
+	wp_die();
+}
+add_action("wp_ajax_change_user_locale", "simple_admin_language_change_user_locale_ajax");
+
 
 /**
  * Parse HTML of wp_dropdown_languages into array
@@ -142,7 +177,11 @@ function simple_admin_language_parse_wp_dropdown_languages() {
 
 }
 
-
+/**
+ * Add custom icon to the admin bar
+ * https://wordpress.stackexchange.com/questions/172939/how-do-i-add-an-icon-to-a-new-admin-bar-item
+ * @return void
+ */
 function simple_admin_language_admin_css() {
 	echo '<style>
     #wpadminbar #wp-admin-bar-salc-current-language .ab-icon:before {
