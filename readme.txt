@@ -37,8 +37,6 @@ Do you want help with the development? Join the [Github](https://github.com/vysk
 
 == Changelog ==
 
-= 1.1.0 =
-
 = 1.0.2 (2018-02-25) =
 * Fix: enable localization
 
