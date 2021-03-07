@@ -71,8 +71,6 @@ function simple_admin_language_admin_menu ( WP_Admin_Bar $admin_bar ) {
     }
 
 	$languages = simple_admin_language_parse_wp_dropdown_languages();
-	$nonce = wp_create_nonce("salc_change_user_locale");
-	$user_id = get_current_user_id();
 
     $admin_bar->add_menu( array(
 		'id'    => 'salc-current-language',
@@ -93,7 +91,7 @@ function simple_admin_language_admin_menu ( WP_Admin_Bar $admin_bar ) {
 			'parent' =>'salc-current-language',
 			'group'  => null,
 			'title' => $la['title'],
-			'href'  => admin_url('admin-ajax.php?action=change_user_locale&user_id=' . $user_id . '&nonce=' . $nonce . '&lang=' . ($la['value'] ? $la['value'] : 'en_US')),
+			'href' => '#' . ($la['value'] ? $la['value'] : 'en_US'),
 		]);
 
 	}
@@ -117,6 +115,7 @@ function simple_admin_language_change_user_locale_ajax()
 	$lang = esc_attr($_REQUEST['lang']);
 
 	if ( ! $user_id || ! $lang ) {
+		\wp_send_json_error('updated', 403);
 		wp_die();
 	}
 
@@ -126,7 +125,7 @@ function simple_admin_language_change_user_locale_ajax()
 
 	wp_update_user(['ID' => $user_id, 'locale' => $lang]);
 
-	\wp_redirect(admin_url('/')); // TODO FIX
+	\wp_send_json_success('updated', 200);
 	wp_die();
 }
 add_action("wp_ajax_change_user_locale", "simple_admin_language_change_user_locale_ajax");
@@ -191,3 +190,19 @@ function simple_admin_language_admin_css() {
 	</style>';
 }
 add_action('admin_head', 'simple_admin_language_admin_css');
+
+
+function simple_admin_language_enqueue_admin_script($hook)
+{
+	// Check for permissions matching the user_locale
+	if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( 'edit_pages' ) ) {
+		return;
+    }
+	wp_enqueue_script('salc', plugin_dir_url(__FILE__) . '/script.js', [], time());
+	wp_localize_script('salc', 'props', [
+		'ajax_url' => admin_url('admin-ajax.php'),
+		'nonce' => wp_create_nonce("salc_change_user_locale"),
+		'user_id' => get_current_user_id(),
+	]);
+}
+add_action('admin_enqueue_scripts', 'simple_admin_language_enqueue_admin_script');
