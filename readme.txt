@@ -8,13 +8,13 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/vyskoczilova/Simple-Admin-Language-Change/
 
-Change your dashboard language quickly and easily in the admin bar.
+Change your dashboard language quickly and easily from the admin bar as often as you need.
 
 == Description ==
 
-The plugin extends the default functionality and pulls out the language selection to the admin bar so you can easily switch between them.
+The lightweight plugin extends the default functionality and pulls out the language selection to the admin bar so you can easily switch between them.
 
-Plugin in versions 1.0.* allowed setting up administration language for different users for quite a long time. **Since WordPress 4.7 version, this feature is now provided natively by WordPress.**
+Note: Plugin in versions 1.0.* allowed setting up administration language for different users for quite a long time. **Since WordPress 4.7 version, this feature is now provided natively by WordPress.**
 
 Do you want help with the development? Join the [Github](https://github.com/vyskoczilova/Simple-Admin-Language-Change/)!
 
@@ -37,7 +37,7 @@ Do you want help with the development? Join the [Github](https://github.com/vysk
 
 = 2.0.0 =
 * Drop the old functionality replaced by an integrated solution since WordPress 4.7
-* Add a simple select box into administration instead.
+* Add a simple select box into the admin bar instead.
 
 = 1.0.2 (2018-02-25) =
 * Fix: enable localization
