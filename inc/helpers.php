@@ -1,12 +1,12 @@
 <?php
 
 /**
-* Helper functions
-*
-* @package    WordPress
-* @subpackage SALC
-* @since 2.0.0
-*/
+ * Helper functions
+ *
+ * @package    WordPress
+ * @subpackage SALC
+ * @since 2.0.0
+ */
 
 namespace SALC;
 

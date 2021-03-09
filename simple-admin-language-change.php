@@ -1,13 +1,20 @@
 <?php
 
-namespace SALC;
+/**
+ * Main plugin file
+ *
+ * @package    WordPress
+ * @subpackage SALC
+ * @since 1.0.0
+ */
 
+namespace SALC;
 
 use WP_Admin_Bar;
 
 /**
  * Plugin Name:       Simple Admin Language Change
- * Plugin URI:		  http://kybernaut.cz/pluginy/simple-admin-language-change
+ * Plugin URI:        http://kybernaut.cz/pluginy/simple-admin-language-change
  * Description:       Change your dashboard language quickly and easily in the admin bar.
  * Version:           2.0.0
  * Author:            Karolína Vyskočilová
@@ -19,11 +26,11 @@ use WP_Admin_Bar;
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (! defined('WPINC')) {
 	die;
 }
 
-define('SIMPLE_ADMIN_LANGUAGE_VERSION', '2.0.0');
+define('SALC_VERSION', '2.0.0');
 
 /**
  * Localize the plugin
@@ -42,65 +49,66 @@ require_once 'inc/scripts-and-styles.php';
 
 /**
  * Add menu to admin bar
+ *
  * @param WP_Admin_Bar $admin_bar Admin bar instance.
  * @return void
  */
-function admin_menu ( $admin_bar ) {
-	// Check for permissions matching the user_locale
-	if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( 'edit_pages' ) ) {
+function admin_menu($admin_bar)
+{
+	// Check for permissions matching the user_locale.
+	if (! current_user_can('edit_posts') || ! current_user_can('edit_pages')) {
 		return;
-    }
+	}
 
 	$languages = parse_wp_dropdown_languages();
 
-    $admin_bar->add_menu( array(
+	$admin_bar->add_menu([
 		'id'    => 'salc-current-language',
-        'parent' => 'top-secondary',
-        'group'  => null,
-        'title' => '<span class="ab-icon"></span>' . $languages['active']['title'],
-        'href'  => '#',
-        'meta' => [
-			'title' => __( 'Current dashboard language', 'kbnt-kbnt-sacl' ),
+		'parent' => 'top-secondary',
+		'group'  => null,
+		'title' => '<span class="ab-icon"></span>' . $languages['active']['title'],
+		'href'  => '#',
+		'meta' => [
+			'title' => __('Current dashboard language', 'kbnt-sacl'),
 			'onclick'  => "return false;"
 		]
-	) );
+	]);
 
-	foreach( $languages['available'] as $la ) {
-
+	foreach ($languages['available'] as $la) {
 		$admin_bar->add_menu([
 			'id'    => 'salc-current-' . sanitize_title($la['title']),
-			'parent' =>'salc-current-language',
+			'parent' => 'salc-current-language',
 			'group'  => null,
 			'title' => $la['title'],
 			'href' => '#' . ($la['value'] ? $la['value'] : 'en_US'),
 		]);
-
 	}
 }
-add_action( 'admin_bar_menu', __NAMESPACE__ . '\admin_menu', 500 );
+add_action('admin_bar_menu', __NAMESPACE__ . '\admin_menu', 500);
 
 
 /**
  * Change user locale
  *
- * @return exit
+ * @return void
  */
 function change_user_locale_ajax()
 {
 
-	if (!wp_verify_nonce($_REQUEST['nonce'], "salc_change_user_locale")) {
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	if (isset($_REQUEST['nonce']) && !wp_verify_nonce($_REQUEST['nonce'], "salc_change_user_locale")) {
 		wp_die("Something went wrong, try again.");
 	}
 
-	$user_id = intval($_REQUEST['user_id']);
-	$lang = esc_attr($_REQUEST['lang']);
+	$user_id = isset($_REQUEST['user_id']) ? intval(wp_unslash($_REQUEST['user_id'])) : false;
+	$lang = isset($_REQUEST['lang']) ? \sanitize_text_field(wp_unslash($_REQUEST['lang'])) : false;
 
-	if ( ! $user_id || ! $lang ) {
+	if (! $user_id || ! $lang) {
 		\wp_send_json_error('updated', 403);
 		wp_die();
 	}
 
-	if ( $lang === 'site-default') {
+	if ($lang === 'site-default') {
 		$lang = null;
 	}
 

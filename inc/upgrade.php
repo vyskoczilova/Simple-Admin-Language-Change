@@ -1,12 +1,12 @@
 <?php
 
 /**
-* File handling plugin upgdares
-*
-* @package    WordPress
-* @subpackage SALC
-* @since 2.0.0
-*/
+ * File handling plugin upgdares
+ *
+ * @package    WordPress
+ * @subpackage SALC
+ * @since 2.0.0
+ */
 
 namespace SALC;
 
@@ -17,10 +17,10 @@ namespace SALC;
  */
 function check_version()
 {
-	$plugin_version = get_option('simple_admin_language_version', '1.0.2');
-	if ($plugin_version !== SIMPLE_ADMIN_LANGUAGE_VERSION) {
+	$plugin_version = get_option('SALC_VERSION', '1.0.2');
+	if ($plugin_version !== SALC_VERSION) {
 		// Store new version.
-		update_option('simple_admin_language_version', SIMPLE_ADMIN_LANGUAGE_VERSION);
+		update_option('SALC_VERSION', SALC_VERSION);
 
 		// Run upgrade routine from the old version.
 		if (version_compare($plugin_version, '2.0.0', '<')) {

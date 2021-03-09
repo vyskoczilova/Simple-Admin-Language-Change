@@ -1,12 +1,12 @@
 <?php
 
 /**
-* File handling scripts and styles
-*
-* @package    WordPress
-* @subpackage SALC
-* @since 2.0.0
-*/
+ * File handling scripts and styles
+ *
+ * @package    WordPress
+ * @subpackage SALC
+ * @since 2.0.0
+ */
 
 namespace SALC;
 
@@ -30,16 +30,16 @@ add_action('admin_head', __NAMESPACE__ . '\admin_css');
 /**
  * Load admin script
  *
- * @param mixed $hook
+ * @param string $hook_suffix The current admin page.
  * @return void
  */
-function admin_script($hook)
+function admin_script($hook_suffix)
 {
-	// Check for permissions matching the user_locale
+	// Check for permissions matching the user_locale.
 	if (! current_user_can('edit_posts') || ! current_user_can('edit_pages')) {
 		return;
 	}
-	wp_enqueue_script('salc', plugin_dir_url( dirname(__FILE__)) . '/script.js', [], time());
+	wp_enqueue_script('salc', plugin_dir_url(dirname(__FILE__)) . '/script.js', [], \SALC_VERSION, true);
 	wp_localize_script('salc', 'props', [
 		'ajax_url' => admin_url('admin-ajax.php'),
 		'nonce' => wp_create_nonce("salc_change_user_locale"),
