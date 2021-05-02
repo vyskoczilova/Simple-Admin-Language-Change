@@ -48,7 +48,7 @@ You need to install the language first.
 
 == Changelog ==
 
-= 2.0.0 =
+= 2.0.0 = (2021-05-02)
 * Drop the old functionality replaced by an integrated solution since WordPress 4.7
 * Add a simple select box into the admin bar instead.
 
