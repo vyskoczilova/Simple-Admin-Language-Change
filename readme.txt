@@ -14,6 +14,8 @@ Change your dashboard language quickly and easily from the admin bar as often as
 
 The lightweight plugin extends the default functionality and pulls out the language selection to the admin bar so you can easily switch between them.
 
+[youtube https://studio.youtube.com/video/i5Mz5ZefDmA]
+
 Note: Plugin in versions 1.0.* allowed setting up administration language for different users for quite a long time. **Since WordPress 4.7 version, this feature is now provided natively by WordPress.**
 
 Do you want help with the development? Join the [Github](https://github.com/vyskoczilova/Simple-Admin-Language-Change/)!
