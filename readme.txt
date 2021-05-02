@@ -18,9 +18,6 @@ Note: Plugin in versions 1.0 allowed setting up administration language for diff
 
 Do you want help with the development? Join the [Github](https://github.com/vyskoczilova/Simple-Admin-Language-Change/)!
 
-=== Compatibility ===
-* Has conflict with [SiteOrigin Widgets Bundle](https://cs.wordpress.org/plugins/so-widgets-bundle/) - prevents javascript popup on Widgets page.
-
 == Frequently Asked Questions ==
 
 = I want to swith to different language =
