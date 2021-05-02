@@ -21,6 +21,17 @@ Do you want help with the development? Join the [Github](https://github.com/vysk
 === Compatibility ===
 * Has conflict with [SiteOrigin Widgets Bundle](https://cs.wordpress.org/plugins/so-widgets-bundle/) - prevents javascript popup on Widgets page.
 
+== Frequently Asked Questions ==
+
+= I want to swith to different language =
+
+You need to install the language first.
+
+1. Go to `Settigngs -> General`.
+1. Select the desired `site language` and hit `save changes`. The language gets installed.
+1. Change the `site language` back to the old value.
+1. Now you can swith in the dropdown.
+
 == Installation ==
 = EN =
 1. Upload the plugin to your website or install via plugin management.
