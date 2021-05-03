@@ -43,7 +43,11 @@ You need to install the language first.
 
 == Changelog ==
 
-= 2.0.0 = (2021-05-02)
+= 2.0.1 (2021-05-03) =
+* Fix security issues:
+    * Check for empty nonce.
+
+= 2.0.0 (2021-05-02)
 * Drop the old functionality replaced by an integrated solution since WordPress 4.7
 * Add a simple select box into the admin bar instead.
 
