@@ -16,7 +16,7 @@ use WP_Admin_Bar;
  * Plugin Name:       Simple Admin Language Change
  * Plugin URI:        http://kybernaut.cz/pluginy/simple-admin-language-change
  * Description:       Change your dashboard language quickly and easily in the admin bar.
- * Version:           2.0.0
+ * Version:           2.0.1
  * Author:            Karolína Vyskočilová
  * Author URI:        https://www.kybernaut.cz
  * Text Domain:       kbnt-sacl
@@ -30,7 +30,7 @@ if (! defined('WPINC')) {
 	die;
 }
 
-define('SALC_VERSION', '2.0.0');
+define('SALC_VERSION', '2.0.1');
 
 /**
  * Localize the plugin
