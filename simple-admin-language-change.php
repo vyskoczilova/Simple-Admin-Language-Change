@@ -100,7 +100,8 @@ function change_user_locale_ajax()
 		wp_die("Something went wrong, try again.");
 	}
 
-	$user_id = isset($_REQUEST['user_id']) ? intval(wp_unslash($_REQUEST['user_id'])) : false;
+	$user_id = \get_current_user_id();
+
 	$lang = isset($_REQUEST['lang']) ? \sanitize_text_field(wp_unslash($_REQUEST['lang'])) : false;
 
 	if (! $user_id || ! $lang) {

@@ -42,8 +42,7 @@ function admin_script($hook_suffix)
 	wp_enqueue_script('salc', plugin_dir_url(dirname(__FILE__)) . '/script.js', [], \SALC_VERSION, true);
 	wp_localize_script('salc', 'props', [
 		'ajax_url' => admin_url('admin-ajax.php'),
-		'nonce' => wp_create_nonce("salc_change_user_locale"),
-		'user_id' => get_current_user_id(),
+		'nonce' => wp_create_nonce("salc_change_user_locale")
 	]);
 }
 add_action('admin_enqueue_scripts', __NAMESPACE__ . '\admin_script');
