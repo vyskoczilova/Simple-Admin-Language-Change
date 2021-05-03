@@ -97,12 +97,12 @@ function change_user_locale_ajax()
 
 	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 	if (!isset($_REQUEST['nonce']) && !wp_verify_nonce($_REQUEST['nonce'], "salc_change_user_locale")) {
-		wp_die("Something went wrong, try again.");
+		wp_die( __('Something went wrong, try again.', 'kbnt-sacl'));
 	}
 
 	// Check for permissions matching the user_locale.
 	if (! current_user_can('edit_posts') || ! current_user_can('edit_pages')) {
-		wp_die("You don't have the correct permissions for language change.");
+		wp_die(__('You don\'t have the correct permissions for language change.', 'kbnt-sacl'));
 	}
 
 	$user_id = \get_current_user_id();

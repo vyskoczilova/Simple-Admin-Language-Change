@@ -48,6 +48,7 @@ You need to install the language first.
     * Check for empty nonce.
     * Check for user permission within ajax request.
     * Retrieve current user ID within request.
+* Make error messages translatable.
 
 = 2.0.0 (2021-05-02)
 * Drop the old functionality replaced by an integrated solution since WordPress 4.7
