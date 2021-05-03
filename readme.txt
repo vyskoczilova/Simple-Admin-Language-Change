@@ -43,8 +43,12 @@ You need to install the language first.
 
 == Changelog ==
 
+= 2.0.2 (2021-05-03) =
+* Fix CSRF security issues
+    * Check for the empty nonce.
+
 = 2.0.1 (2021-05-03) =
-* Fix security issues (thanks @ErwanLR from WPScan for reporting!)
+* Fix CSRF security issues (thanks @ErwanLR from WPScan for reporting!)
     * Check for the empty nonce.
     * Check for user permission within ajax request.
     * Retrieve current user ID within the request.

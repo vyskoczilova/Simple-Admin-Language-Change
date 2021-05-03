@@ -96,7 +96,7 @@ function change_user_locale_ajax()
 {
 
 	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-	if (!isset($_REQUEST['nonce']) && !wp_verify_nonce($_REQUEST['nonce'], "salc_change_user_locale")) {
+	if (!isset($_REQUEST['nonce']) || !wp_verify_nonce($_REQUEST['nonce'], "salc_change_user_locale")) {
 		wp_die( __('Something went wrong, try again.', 'kbnt-sacl'));
 	}
 
