@@ -100,6 +100,11 @@ function change_user_locale_ajax()
 		wp_die("Something went wrong, try again.");
 	}
 
+	// Check for permissions matching the user_locale.
+	if (! current_user_can('edit_posts') || ! current_user_can('edit_pages')) {
+		wp_die("You don't have the correct permissions for language change.");
+	}
+
 	$user_id = \get_current_user_id();
 
 	$lang = isset($_REQUEST['lang']) ? \sanitize_text_field(wp_unslash($_REQUEST['lang'])) : false;

@@ -46,6 +46,7 @@ You need to install the language first.
 = 2.0.1 (2021-05-03) =
 * Fix security issues (thanks @ErwanLR from WPScan for reporting!)
     * Check for empty nonce.
+    * Check for user permission within ajax request.
     * Retrieve current user ID within request.
 
 = 2.0.0 (2021-05-02)
