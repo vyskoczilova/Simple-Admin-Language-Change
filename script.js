@@ -26,7 +26,7 @@ function salc_change_admin_language(e) {
         }
     };
 
-    request.send('action=change_user_locale&&user_id=' + props.user_id + '&nonce=' + props.nonce + '&lang=' + language);
+    request.send('action=change_user_locale&nonce=' + props.nonce + '&lang=' + language);
 
     return false;
 }

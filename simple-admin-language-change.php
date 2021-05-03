@@ -16,7 +16,7 @@ use WP_Admin_Bar;
  * Plugin Name:       Simple Admin Language Change
  * Plugin URI:        http://kybernaut.cz/pluginy/simple-admin-language-change
  * Description:       Change your dashboard language quickly and easily in the admin bar.
- * Version:           2.0.0
+ * Version:           2.0.2
  * Author:            Karolína Vyskočilová
  * Author URI:        https://www.kybernaut.cz
  * Text Domain:       kbnt-sacl
@@ -30,7 +30,7 @@ if (! defined('WPINC')) {
 	die;
 }
 
-define('SALC_VERSION', '2.0.0');
+define('SALC_VERSION', '2.0.2');
 
 /**
  * Localize the plugin
@@ -96,11 +96,17 @@ function change_user_locale_ajax()
 {
 
 	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-	if (isset($_REQUEST['nonce']) && !wp_verify_nonce($_REQUEST['nonce'], "salc_change_user_locale")) {
-		wp_die("Something went wrong, try again.");
+	if (!isset($_REQUEST['nonce']) || !wp_verify_nonce($_REQUEST['nonce'], "salc_change_user_locale")) {
+		wp_die(esc_html(__('Something went wrong, try again.', 'kbnt-sacl')));
 	}
 
-	$user_id = isset($_REQUEST['user_id']) ? intval(wp_unslash($_REQUEST['user_id'])) : false;
+	// Check for permissions matching the user_locale.
+	if (! current_user_can('edit_posts') || ! current_user_can('edit_pages')) {
+		wp_die(esc_html(__('You don\'t have the correct permissions for language change.', 'kbnt-sacl')));
+	}
+
+	$user_id = \get_current_user_id();
+
 	$lang = isset($_REQUEST['lang']) ? \sanitize_text_field(wp_unslash($_REQUEST['lang'])) : false;
 
 	if (! $user_id || ! $lang) {

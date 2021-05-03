@@ -3,7 +3,7 @@ Contributors: vyskoczilova
 Tags: admin language, backend language, localization, backend, English
 Requires at least: 4.7
 Tested up to: 5.7
-Stable tag: 2.0.0
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/vyskoczilova/Simple-Admin-Language-Change/
@@ -43,7 +43,19 @@ You need to install the language first.
 
 == Changelog ==
 
-= 2.0.0 = (2021-05-02)
+= 2.0.2 (2021-05-03) =
+* Fix security issues
+    * Check for the empty nonce.
+    * Escape translations.
+
+= 2.0.1 (2021-05-03) =
+* Fix security issues (thanks @ErwanLR from WPScan for reporting!)
+    * Check for the empty nonce.
+    * Check for user permission within ajax request.
+    * Retrieve current user ID within the request.
+* Make error messages translatable.
+
+= 2.0.0 (2021-05-02) =
 * Drop the old functionality replaced by an integrated solution since WordPress 4.7
 * Add a simple select box into the admin bar instead.
 
