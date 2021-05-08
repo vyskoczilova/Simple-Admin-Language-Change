@@ -3,7 +3,7 @@ Contributors: vyskoczilova
 Tags: admin language, backend language, localization, backend, English
 Requires at least: 4.7
 Tested up to: 5.7
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/vyskoczilova/Simple-Admin-Language-Change/
@@ -42,6 +42,10 @@ You need to install the language first.
 1. Changing languages and installing another language (French)
 
 == Changelog ==
+
+= 2.0.3 (2021-05-08) =
+
+* Replace textdomain `kbnt-salc` with `simple-admin-language-change` to make it work with GlotPress ((more info)[https://wordpress.org/support/topic/text-domain-issue-30/])
 
 = 2.0.2 (2021-05-03) =
 * Fix security issues
