@@ -16,10 +16,10 @@ use WP_Admin_Bar;
  * Plugin Name:       Simple Admin Language Change
  * Plugin URI:        http://kybernaut.cz/pluginy/simple-admin-language-change
  * Description:       Change your dashboard language quickly and easily in the admin bar.
- * Version:           2.0.2
+ * Version:           2.0.3
  * Author:            Karolína Vyskočilová
  * Author URI:        https://www.kybernaut.cz
- * Text Domain:       kbnt-sacl
+ * Text Domain:       simple-admin-language-change
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
@@ -30,7 +30,7 @@ if (! defined('WPINC')) {
 	die;
 }
 
-define('SALC_VERSION', '2.0.2');
+define('SALC_VERSION', '2.0.3');
 
 /**
  * Localize the plugin
@@ -39,7 +39,7 @@ define('SALC_VERSION', '2.0.2');
  */
 function localize_plugin()
 {
-	load_plugin_textdomain('kbnt-sacl', false, plugin_dir_path(__FILE__) . 'languages/');
+	load_plugin_textdomain('simple-admin-language-change', false, plugin_dir_path(__FILE__) . 'languages/');
 }
 add_action('init', __NAMESPACE__ . '\localize_plugin');
 
@@ -69,7 +69,7 @@ function admin_menu($admin_bar)
 		'title' => '<span class="ab-icon"></span>' . $languages['active']['title'],
 		'href'  => '#',
 		'meta' => [
-			'title' => __('Current dashboard language', 'kbnt-sacl'),
+			'title' => __('Current dashboard language', 'simple-admin-language-change'),
 			'onclick'  => "return false;"
 		]
 	]);
@@ -97,12 +97,12 @@ function change_user_locale_ajax()
 
 	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 	if (!isset($_REQUEST['nonce']) || !wp_verify_nonce($_REQUEST['nonce'], "salc_change_user_locale")) {
-		wp_die(esc_html(__('Something went wrong, try again.', 'kbnt-sacl')));
+		wp_die(esc_html(__('Something went wrong, try again.', 'simple-admin-language-change')));
 	}
 
 	// Check for permissions matching the user_locale.
 	if (! current_user_can('edit_posts') || ! current_user_can('edit_pages')) {
-		wp_die(esc_html(__('You don\'t have the correct permissions for language change.', 'kbnt-sacl')));
+		wp_die(esc_html(__('You don\'t have the correct permissions for language change.', 'simple-admin-language-change')));
 	}
 
 	$user_id = \get_current_user_id();
