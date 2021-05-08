@@ -45,7 +45,7 @@ You need to install the language first.
 
 = 2.0.3 (2021-05-08) =
 
-* Replace textdomain `kbnt-salc` with `simple-admin-language-change` to make it work with GlotPress ((more info)[https://wordpress.org/support/topic/text-domain-issue-30/])
+* Replace textdomain `kbnt-salc` with `simple-admin-language-change` to make it work with GlotPress ([more info](https://wordpress.org/support/topic/text-domain-issue-30/))
 
 = 2.0.2 (2021-05-03) =
 * Fix security issues
