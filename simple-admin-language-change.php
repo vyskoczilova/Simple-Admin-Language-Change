@@ -102,7 +102,7 @@ function change_user_locale_ajax()
 	}
 
 
-// Check for permissions and if it is admin.
+	// Check for permissions and if it is admin.
 	if (! current_user_can('read') || ! is_admin()) {
 
 		wp_die(esc_html(__('You don\'t have the correct permissions for language change.', 'simple-admin-language-change')));
