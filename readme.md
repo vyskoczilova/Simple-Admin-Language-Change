@@ -4,3 +4,5 @@
 ![build status](https://travis-ci.com/vyskoczilova/Simple-Admin-Language-Change.svg)
 
 The lightweight plugin extends the default functionality and pulls out the language selection to the admin bar so you can easily switch between them.
+
+![Plugin preview](.wordpress-org/screenshot-1.gif)
