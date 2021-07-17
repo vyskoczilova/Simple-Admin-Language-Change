@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File handling plugin upgdares
+ * File handling plugin upgrades
  *
  * @package    WordPress
  * @subpackage SALC
