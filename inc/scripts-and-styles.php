@@ -28,15 +28,16 @@ function admin_css()
 add_action('admin_head', __NAMESPACE__ . '\admin_css');
 
 /**
- * Load admin script
+ * Load script
  *
  * @param string $hook_suffix The current admin page.
  * @return void
  */
-function admin_script($hook_suffix)
+function load_script($hook_suffix)
 {
-	// Check for permissions matching the user_locale.
-	if (! current_user_can('edit_posts') || ! current_user_can('edit_pages')) {
+
+	// Check for permissions and if it is admin.
+	if (! current_user_can('read') || ! is_admin() ) {
 		return;
 	}
 	wp_enqueue_script('salc', plugin_dir_url(dirname(__FILE__)) . '/script.js', [], \SALC_VERSION, true);
@@ -45,4 +46,4 @@ function admin_script($hook_suffix)
 		'nonce' => wp_create_nonce("salc_change_user_locale")
 	]);
 }
-add_action('admin_enqueue_scripts', __NAMESPACE__ . '\admin_script');
+add_action('admin_enqueue_scripts', __NAMESPACE__ . '\load_script');

@@ -3,7 +3,7 @@ Contributors: vyskoczilova
 Tags: admin language, backend language, localization, backend, English
 Requires at least: 4.7
 Tested up to: 5.7
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/vyskoczilova/Simple-Admin-Language-Change/
@@ -25,7 +25,7 @@ You need to install the language first.
 1. Go to `Settigngs -> General`.
 1. Select the desired `site language` and hit `save changes`. The language gets installed.
 1. Change the `site language` back to the old value.
-1. Now you can swith in the dropdown.
+1. Now you can switch in the dropdown.
 
 == Installation ==
 = EN =
@@ -40,6 +40,11 @@ You need to install the language first.
 1. Changing languages and installing another language (French)
 
 == Changelog ==
+
+= 2.0.4 (2021-07-27) =
+
+* Lower the permissions check - anybody with "read" permissions (e.g., subscriber) can change their locale with the dropdown when logged into the admin.
+* Hide the language switcher on the front end - the top admin bar is affected by site language, not the user's choice (opened [trac ticket](https://core.trac.wordpress.org/ticket/53794) for that)
 
 = 2.0.3 (2021-05-08) =
 

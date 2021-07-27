@@ -16,7 +16,7 @@ use WP_Admin_Bar;
  * Plugin Name:       Simple Admin Language Change
  * Plugin URI:        http://kybernaut.cz/pluginy/simple-admin-language-change
  * Description:       Change your dashboard language quickly and easily in the admin bar.
- * Version:           2.0.3
+ * Version:           2.0.4
  * Author:            Karolína Vyskočilová
  * Author URI:        https://www.kybernaut.cz
  * Text Domain:       simple-admin-language-change
@@ -30,7 +30,7 @@ if (! defined('WPINC')) {
 	die;
 }
 
-define('SALC_VERSION', '2.0.3');
+define('SALC_VERSION', '2.0.4');
 
 /**
  * Localize the plugin
@@ -55,8 +55,9 @@ require_once 'inc/scripts-and-styles.php';
  */
 function admin_menu($admin_bar)
 {
-	// Check for permissions matching the user_locale.
-	if (! current_user_can('edit_posts') || ! current_user_can('edit_pages')) {
+
+	// Check for permissions and if it is admin.
+	if (! current_user_can('read') || ! is_admin() ) {
 		return;
 	}
 
@@ -100,8 +101,10 @@ function change_user_locale_ajax()
 		wp_die(esc_html(__('Something went wrong, try again.', 'simple-admin-language-change')));
 	}
 
-	// Check for permissions matching the user_locale.
-	if (! current_user_can('edit_posts') || ! current_user_can('edit_pages')) {
+
+// Check for permissions and if it is admin.
+	if (! current_user_can('read') || ! is_admin()) {
+
 		wp_die(esc_html(__('You don\'t have the correct permissions for language change.', 'simple-admin-language-change')));
 	}
 
