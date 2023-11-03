@@ -20,11 +20,11 @@ Do you want help with the development? Join the [Github](https://github.com/vysk
 
 == Frequently Asked Questions ==
 
-= I want to swith to different language =
+= I want to switch to a different language =
 
 You need to install the language first.
 
-1. Go to `Settigngs -> General`.
+1. Go to `Settings -> General`.
 1. Select the desired `site language` and hit `save changes`. The language gets installed.
 1. Change the `site language` back to the old value.
 1. Now you can switch in the dropdown.
@@ -34,7 +34,7 @@ You need to install the language first.
 1. Upload the plugin to your website or install via plugin management.
 1. Check whether the WooCommerce plugin is installed and active.
 1. Activate the plugin through the `Plugins` menu in WordPress administration
-1. (If you wish, go to the  `Settings` and  `General` to select different installed language instead of English)
+1. (If you wish, go to the `Settings` and `General` to select different installed language instead of English)
 1. Done!
 
 == Screenshots ==
