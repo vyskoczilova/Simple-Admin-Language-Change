@@ -17,7 +17,27 @@ namespace SALC;
  */
 function parse_wp_dropdown_languages()
 {
+    $languages = array(
+        "active" => array(
+            "value" => "de_DE_formal",
+            "title" => "Deutsch"
+        ),
+        "available" => array(
+            array(
+                "value" => "de_DE_formal",
+                "title" => "Deutsch"
+            ),
+            array(
+                "value" => "en_US",
+                "title" => "English"
+            ),
+            array(
+                "value" => "ru_RU",
+                "title" => "Russisch"
+            )
 
+        )
+    );
 	$user_locale = get_user_locale();
 	$available_languages = get_available_languages();
 	ob_start();
@@ -33,10 +53,7 @@ function parse_wp_dropdown_languages()
 	);
 	$wp_dropdown_languages = ob_get_contents();
 	ob_end_clean();
-	$languages = [
-		'active' => [],
-		'available' => []
-	];
+
 
 	$dom = new \DOMDocument();
 	$dom->loadHTML(mb_convert_encoding($wp_dropdown_languages, 'HTML-ENTITIES', 'UTF-8'));
@@ -49,7 +66,7 @@ function parse_wp_dropdown_languages()
 		if ($options->item($i)->hasAttribute('selected')) {
 			$languages['active'] = $language;
 		} else {
-			$languages['available'][] = $language;
+			//$languages['available'][] = $language;
 		}
 	}
 
