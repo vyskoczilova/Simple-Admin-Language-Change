@@ -39,7 +39,16 @@ function parse_wp_dropdown_languages()
 	];
 
 	$dom = new \DOMDocument();
-	$dom->loadHTML(mb_convert_encoding($wp_dropdown_languages, 'HTML-ENTITIES', 'UTF-8'));
+
+	// If the content contains HTML entities, convert them to ensure proper display.
+	if (version_compare(phpversion(), '8.2', '>=')) {
+		$content = mb_encode_numericentity(htmlspecialchars_decode(htmlentities($wp_dropdown_languages, ENT_NOQUOTES, 'UTF-8', false), ENT_NOQUOTES), [0x80, 0x10FFFF, 0, ~0], 'UTF-8');
+	} else {
+		$content = mb_convert_encoding($wp_dropdown_languages, 'HTML-ENTITIES', 'UTF-8');
+	}
+
+	$dom->loadHTML($content);
+	
 	$options = $dom->getElementsByTagName('option');
 	for ($i = 0; $i < $options->length; $i++) {
 		$language = [

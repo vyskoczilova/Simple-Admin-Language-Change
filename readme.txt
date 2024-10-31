@@ -2,7 +2,7 @@
 Contributors: vyskoczilova
 Tags: admin language, backend language, localization, backend, English
 Requires at least: 4.7
-Tested up to: 6.6
+Tested up to: 6.7
 Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -44,6 +44,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 1. Changing languages and installing another language (French)
 
 == Changelog ==
+
+= 2.0.5 () =
+
+* Fix PHP 8.2 deprecation notice on mb_convert_encoding.
 
 = 2.0.4 (2021-07-27) =
 
