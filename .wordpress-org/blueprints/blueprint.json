@@ -1,0 +1,45 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "\/wp-admin\/index.php",
+	"preferredVersions": {
+		"php": "8.0",
+		"wp": "latest"
+	},
+	"phpExtensionBundles": ["kitchen-sink"],
+	"features": {
+		"networking": true
+	},
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginZipFile": {
+				"resource": "wordpress.org/plugins",
+				"slug": "simple-admin-language-change"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp language core install fr_FR"
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp language core install de_DE"
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp language core install cs_CZ"
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp language core install ar"
+		},
+		{
+			"step": "login",
+			"username": "admin",
+			"password": "password"
+		}
+	]
+}
