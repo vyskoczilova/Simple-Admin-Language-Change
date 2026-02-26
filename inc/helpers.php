@@ -62,5 +62,20 @@ function parse_wp_dropdown_languages()
 		}
 	}
 
-	return $languages;
+	/**
+	 * Filter the parsed languages array.
+	 *
+	 * Allows modifying the list of languages displayed in the admin bar.
+	 * Each language entry is an array with 'value' (locale code) and 'title' (display name).
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param array $languages {
+	 *     The languages array.
+	 *
+	 *     @type array $active    The currently active language ('value' and 'title').
+	 *     @type array $available List of available languages, each with 'value' and 'title'.
+	 * }
+	 */
+	return apply_filters('salc_languages', $languages);
 }
