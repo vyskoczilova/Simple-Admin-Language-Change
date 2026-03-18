@@ -47,7 +47,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 2.1.0 (2026-03-18) =
 
-* Add `salc_languages` filter to allow developers to customize which languages are displayed in the admin bar dropdown.
+* Add `salc_languages` filter to allow developers to customize which languages are displayed in the admin bar dropdown. See the [Customization section](https://github.com/vyskoczilova/Simple-Admin-Language-Change/#customization) for details.
 
 = 2.0.5 (2024-10-31) =
 
