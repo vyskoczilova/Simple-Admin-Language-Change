@@ -14,6 +14,8 @@ Change your dashboard language quickly and easily from the admin bar as often as
 
 The lightweight plugin extends the default WordPress functionality (user settings in Profile) and pulls out the language selection to the admin bar so you can easily switch between them.
 
+You can customize which languages appear in the dropdown using the `salc_languages` filter. See the [Customization section](https://github.com/vyskoczilova/Simple-Admin-Language-Change/#customization) for details.
+
 Do you want help with the development? Join the [Github](https://github.com/vyskoczilova/Simple-Admin-Language-Change/)!
 
 == Frequently Asked Questions ==
@@ -32,11 +34,9 @@ You need to install the language first.
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/simple-admin-language-change)
 
 == Installation ==
-= EN =
 1. Upload the plugin to your website or install via plugin management.
-1. Check whether the WooCommerce plugin is installed and active.
-1. Activate the plugin through the `Plugins` menu in WordPress administration
-1. (If you wish, go to the `Settings` and `General` to select different installed language instead of English)
+1. Activate the plugin through the `Plugins` menu in WordPress administration.
+1. (If you wish, go to `Settings` → `General` to install a different language.)
 1. Done!
 
 == Screenshots ==
@@ -44,6 +44,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 1. Changing languages and installing another language (French)
 
 == Changelog ==
+
+= 2.1.0 =
+
+* Add `salc_languages` filter to allow developers to customize which languages are displayed in the admin bar dropdown.
 
 = 2.0.5 (2024-10-31) =
 
