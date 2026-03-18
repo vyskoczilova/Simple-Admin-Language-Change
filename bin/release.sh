@@ -46,7 +46,7 @@ echo ""
 echo "Extracting changelog entry with Claude..."
 echo ""
 
-changelog=$(claude --print -p "Read the file $README_FILE. Extract ONLY the changelog entry for version $plugin_version. Output the raw text content of that single version entry (the bullet points only, no heading, no version number). Do not add any commentary.")
+changelog=$(claude --print --model claude-haiku-4-5-20251001 -p "Read the file $README_FILE. Extract ONLY the changelog entry for version $plugin_version. Output the raw text content of that single version entry (the bullet points only, no heading, no version number). Do not add any commentary.")
 
 if [ -z "$changelog" ]; then
     echo "Error: Could not extract changelog entry for version $plugin_version"
