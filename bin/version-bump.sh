@@ -17,7 +17,7 @@ increment_version() {
 }
 
 # Get current version from plugin header (handles tabs/spaces after "Version:")
-header_version=$(grep -E "^[[:space:]]*Version:" "$PLUGIN_FILE" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+header_version=$(grep -E "^[[:space:]]*\*?[[:space:]]*Version:" "$PLUGIN_FILE" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 constant_version=$(grep "SALC_VERSION" "$PLUGIN_FILE" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 readme_version=$(grep -E "^Stable tag:" "$README_FILE" 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 

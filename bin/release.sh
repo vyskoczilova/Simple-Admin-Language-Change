@@ -15,7 +15,7 @@ echo "Pushing changes to remote..."
 git push
 
 # --- 3. Get current plugin version ---
-plugin_version=$(grep -E "^[[:space:]]*Version:" "$PLUGIN_FILE" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+plugin_version=$(grep -E "^[[:space:]]*\*?[[:space:]]*Version:" "$PLUGIN_FILE" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 if [ -z "$plugin_version" ]; then
     echo "Error: Could not detect version from $PLUGIN_FILE"
     exit 1

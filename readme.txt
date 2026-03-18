@@ -2,8 +2,8 @@
 Contributors: vyskoczilova
 Tags: admin language, backend language, localization, backend, English
 Requires at least: 4.7
-Tested up to: 6.7
-Stable tag: 2.0.5
+Tested up to: 6.9
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/vyskoczilova/Simple-Admin-Language-Change/
