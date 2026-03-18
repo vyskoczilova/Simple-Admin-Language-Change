@@ -45,7 +45,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 2.1.0 =
+= 2.1.0 (2026-03-18) =
 
 * Add `salc_languages` filter to allow developers to customize which languages are displayed in the admin bar dropdown.
 
