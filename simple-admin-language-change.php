@@ -67,7 +67,7 @@ function admin_menu($admin_bar)
 		'id'    => 'salc-current-language',
 		'parent' => 'top-secondary',
 		'group'  => null,
-		'title' => '<span class="ab-icon"></span>' . $languages['active']['title'],
+		'title' => '<span class="ab-icon"></span>' . esc_html($languages['active']['title']),
 		'href'  => '#',
 		'meta' => [
 			'title' => __('Current dashboard language', 'simple-admin-language-change'),
@@ -80,7 +80,7 @@ function admin_menu($admin_bar)
 			'id'    => 'salc-current-' . sanitize_title($la['title']),
 			'parent' => 'salc-current-language',
 			'group'  => null,
-			'title' => $la['title'],
+			'title' => esc_html($la['title']),
 			'href' => '#' . ($la['value'] ? $la['value'] : 'en_US'),
 		]);
 	}
@@ -102,9 +102,10 @@ function change_user_locale_ajax()
 	}
 
 
-	// Check for permissions and if it is admin.
-	if (! current_user_can('read') || ! is_admin()) {
-
+	// Check for permissions. Note that is_admin() is always true for
+	// admin-ajax.php requests, so the capability check and the nonce
+	// above are the effective gates here.
+	if (! current_user_can('read')) {
 		wp_die(esc_html(__('You don\'t have the correct permissions for language change.', 'simple-admin-language-change')));
 	}
 
@@ -113,17 +114,18 @@ function change_user_locale_ajax()
 	$lang = isset($_REQUEST['lang']) ? \sanitize_text_field(wp_unslash($_REQUEST['lang'])) : false;
 
 	if (! $user_id || ! $lang) {
-		\wp_send_json_error('updated', 403);
-		wp_die();
+		\wp_send_json_error('missing locale', 400);
 	}
 
 	if ($lang === 'site-default') {
-		$lang = null;
+		$lang = '';
+	} elseif ($lang !== 'en_US' && ! in_array($lang, get_available_languages(), true)) {
+		// Only installed locales may be stored, mirroring core's edit_user().
+		\wp_send_json_error('invalid locale', 400);
 	}
 
 	wp_update_user(['ID' => $user_id, 'locale' => $lang]);
 
 	\wp_send_json_success('updated', 200);
-	wp_die();
 }
 add_action("wp_ajax_change_user_locale", __NAMESPACE__ . "\change_user_locale_ajax");
