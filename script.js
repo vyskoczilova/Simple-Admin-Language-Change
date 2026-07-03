@@ -7,11 +7,11 @@ window.addEventListener('load', () => {
 
 function salc_change_admin_language(e) {
 
-    e.preventDefault;
+    e.preventDefault();
     var language = this.getAttribute("href").substring(1);
     var request = new XMLHttpRequest();
 
-    request.open('POST', props.ajax_url, true);
+    request.open('POST', salcProps.ajax_url, true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;');
 
     request.onload = function () {
@@ -26,7 +26,5 @@ function salc_change_admin_language(e) {
         }
     };
 
-    request.send('action=change_user_locale&nonce=' + props.nonce + '&lang=' + language);
-
-    return false;
+    request.send('action=change_user_locale&nonce=' + encodeURIComponent(salcProps.nonce) + '&lang=' + encodeURIComponent(language));
 }

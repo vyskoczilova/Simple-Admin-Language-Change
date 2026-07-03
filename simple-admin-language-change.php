@@ -39,7 +39,7 @@ define('SALC_VERSION', '2.1.0');
  */
 function localize_plugin()
 {
-	load_plugin_textdomain('simple-admin-language-change', false, plugin_dir_path(__FILE__) . 'languages/');
+	load_plugin_textdomain('simple-admin-language-change', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 }
 add_action('init', __NAMESPACE__ . '\localize_plugin');
 

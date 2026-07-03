@@ -20,46 +20,57 @@ function parse_wp_dropdown_languages()
 
 	$user_locale = get_user_locale();
 	$available_languages = get_available_languages();
-	ob_start();
-	wp_dropdown_languages(
-		[
-			'name'                        => 'locale',
-			'id'                          => 'locale',
-			'selected'                    => $user_locale,
-			'languages'                   => $available_languages,
-			'show_available_translations' => false,
-			'show_option_site_default'    => true,
-		]
-	);
-	$wp_dropdown_languages = ob_get_contents();
-	ob_end_clean();
-	$languages = [
-		'active' => [],
-		'available' => []
-	];
 
-	$dom = new \DOMDocument();
+	// Rendering the dropdown calls wp_get_available_translations(), which may
+	// perform a blocking HTTP request to api.wordpress.org, and parsing it
+	// back out of the HTML is costly, so the result is cached. The key changes
+	// whenever the user locale or the set of installed languages changes.
+	$cache_key = 'salc_languages_' . md5(SALC_VERSION . '|' . $user_locale . '|' . implode(',', $available_languages));
+	$languages = get_transient($cache_key);
 
-	// If the content contains HTML entities, convert them to ensure proper display.
-	if (version_compare(phpversion(), '8.2', '>=')) {
-		$content = mb_encode_numericentity(htmlspecialchars_decode(htmlentities($wp_dropdown_languages, ENT_NOQUOTES, 'UTF-8', false), ENT_NOQUOTES), [0x80, 0x10FFFF, 0, ~0], 'UTF-8');
-	} else {
-		$content = mb_convert_encoding($wp_dropdown_languages, 'HTML-ENTITIES', 'UTF-8');
-	}
-
-	$dom->loadHTML($content);
-	
-	$options = $dom->getElementsByTagName('option');
-	for ($i = 0; $i < $options->length; $i++) {
-		$language = [
-			'value' => $options->item($i)->getAttribute('value'),
-			'title' => $options->item($i)->nodeValue,
+	if (! is_array($languages) || ! isset($languages['active'], $languages['available'])) {
+		ob_start();
+		wp_dropdown_languages(
+			[
+				'name'                        => 'locale',
+				'id'                          => 'locale',
+				'selected'                    => $user_locale,
+				'languages'                   => $available_languages,
+				'show_available_translations' => false,
+				'show_option_site_default'    => true,
+			]
+		);
+		$wp_dropdown_languages = ob_get_clean();
+		$languages = [
+			'active' => [],
+			'available' => []
 		];
-		if ($options->item($i)->hasAttribute('selected')) {
-			$languages['active'] = $language;
+
+		$dom = new \DOMDocument();
+
+		// If the content contains HTML entities, convert them to ensure proper display.
+		if (version_compare(phpversion(), '8.2', '>=')) {
+			$content = mb_encode_numericentity(htmlspecialchars_decode(htmlentities($wp_dropdown_languages, ENT_NOQUOTES, 'UTF-8', false), ENT_NOQUOTES), [0x80, 0x10FFFF, 0, ~0], 'UTF-8');
 		} else {
-			$languages['available'][] = $language;
+			$content = mb_convert_encoding($wp_dropdown_languages, 'HTML-ENTITIES', 'UTF-8');
 		}
+
+		$dom->loadHTML($content);
+
+		$options = $dom->getElementsByTagName('option');
+		for ($i = 0; $i < $options->length; $i++) {
+			$language = [
+				'value' => $options->item($i)->getAttribute('value'),
+				'title' => $options->item($i)->nodeValue,
+			];
+			if ($options->item($i)->hasAttribute('selected')) {
+				$languages['active'] = $language;
+			} else {
+				$languages['available'][] = $language;
+			}
+		}
+
+		set_transient($cache_key, $languages, DAY_IN_SECONDS);
 	}
 
 	/**

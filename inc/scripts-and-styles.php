@@ -18,6 +18,9 @@ namespace SALC;
  */
 function admin_css()
 {
+	if (! is_admin_bar_showing()) {
+		return;
+	}
 	echo '<style>
     #wpadminbar #wp-admin-bar-salc-current-language .ab-icon:before {
 		content: "\f326";
@@ -36,12 +39,12 @@ add_action('admin_head', __NAMESPACE__ . '\admin_css');
 function load_script($hook_suffix)
 {
 
-	// Check for permissions and if it is admin.
-	if (! current_user_can('read') || ! is_admin() ) {
+	// Check for permissions and bail when the admin bar is not rendered.
+	if (! current_user_can('read') || ! is_admin_bar_showing() ) {
 		return;
 	}
-	wp_enqueue_script('salc', plugin_dir_url(dirname(__FILE__)) . '/script.js', [], \SALC_VERSION, true);
-	wp_localize_script('salc', 'props', [
+	wp_enqueue_script('salc', plugin_dir_url(dirname(__FILE__)) . 'script.js', [], \SALC_VERSION, true);
+	wp_localize_script('salc', 'salcProps', [
 		'ajax_url' => admin_url('admin-ajax.php'),
 		'nonce' => wp_create_nonce("salc_change_user_locale")
 	]);
