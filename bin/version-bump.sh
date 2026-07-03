@@ -3,6 +3,15 @@
 PLUGIN_FILE="simple-admin-language-change.php"
 README_FILE="readme.txt"
 
+# In-place sed that works with both GNU sed (Linux) and BSD sed (macOS)
+sedi() {
+    if sed --version >/dev/null 2>&1; then
+        sed -i "$@"
+    else
+        sed -i '' "$@"
+    fi
+}
+
 # Function to increment version number
 increment_version() {
     local version=$1
@@ -44,12 +53,12 @@ fi
 echo ""
 
 # Update version in plugin header (preserve tabs/spaces)
-sed -i '' "s/\(Version:[[:space:]]*\)$header_version/\1$new_version/" "$PLUGIN_FILE"
+sedi "s/\(Version:[[:space:]]*\)$header_version/\1$new_version/" "$PLUGIN_FILE"
 echo "Updated plugin header to $new_version"
 
 # Update version constant
 if [ -n "$constant_version" ]; then
-    sed -i '' "s/SALC_VERSION', '$constant_version'/SALC_VERSION', '$new_version'/" "$PLUGIN_FILE"
+    sedi "s/SALC_VERSION', '$constant_version'/SALC_VERSION', '$new_version'/" "$PLUGIN_FILE"
     echo "Updated PHP constant to $new_version"
 fi
 
@@ -58,7 +67,7 @@ read -p "Update stable tag in readme.txt? (y/n): " update_readme
 
 if [ "$update_readme" = "y" ] || [ "$update_readme" = "Y" ]; then
     if [ -f "$README_FILE" ]; then
-        sed -i '' "s/^Stable tag: .*/Stable tag: $new_version/" "$README_FILE"
+        sedi "s/^Stable tag: .*/Stable tag: $new_version/" "$README_FILE"
         echo "Updated stable tag in readme.txt"
     else
         echo "readme.txt not found"
