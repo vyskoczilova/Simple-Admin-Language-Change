@@ -12,7 +12,7 @@ function salc_change_admin_language(e) {
     var request = new XMLHttpRequest();
 
     request.open('POST', props.ajax_url, true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;');
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     request.onload = function () {
         if (this.status >= 200 && this.status < 400) {
