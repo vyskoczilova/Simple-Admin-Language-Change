@@ -2,8 +2,8 @@
 Contributors: vyskoczilova
 Tags: admin language, backend language, localization, backend, English
 Requires at least: 4.7
-Tested up to: 6.9
-Stable tag: 2.1.0
+Tested up to: 7.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/vyskoczilova/Simple-Admin-Language-Change/
@@ -44,6 +44,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 1. Changing languages and installing another language (French)
 
 == Changelog ==
+
+= 2.1.1 (2026-08-04) =
+
+* Fix admin bar language switch being blocked by ModSecurity (OWASP CRS rule 920470) due to a malformed `Content-Type` header. The trailing semicolon in `application/x-www-form-urlencoded;` was rejected as an illegal media-type ([support topic](https://wordpress.org/support/topic/ajax-blocked-by-modsecurity-malformed-content-type-hea/)).
+* Confirm compatibility with WordPress 7.0.
 
 = 2.1.0 (2026-03-18) =
 
