@@ -10,6 +10,11 @@
 
 namespace SALC;
 
+// If this file is called directly, abort.
+if (! defined('ABSPATH')) {
+	exit;
+}
+
 /**
  * Parse HTML of wp_dropdown_languages into array
  *

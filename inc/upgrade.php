@@ -10,6 +10,11 @@
 
 namespace SALC;
 
+// If this file is called directly, abort.
+if (! defined('ABSPATH')) {
+	exit;
+}
+
 /**
  * Check version and run upgrade routine if needed.
  *

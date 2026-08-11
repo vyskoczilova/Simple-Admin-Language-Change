@@ -10,6 +10,11 @@
 
 namespace SALC;
 
+// If this file is called directly, abort.
+if (! defined('ABSPATH')) {
+	exit;
+}
+
 /**
  * Add custom icon to the admin bar
  * https://wordpress.stackexchange.com/questions/172939/how-do-i-add-an-icon-to-a-new-admin-bar-item
